@@ -7,7 +7,7 @@ import {
   // createBrowserRouter,
   // RouterProvider,
 } from "react-router-dom";
-import Home from "./components/pages/Home.jsx";
+import Home from "./components/pages/Home/Home.jsx";
 import Articles from "./components/pages/Articles/Articles.jsx";
 import NotFound from "./components/pages/NotFound/NotFound.jsx";
 import ArticleDetails from "./components/pages/Articles/ArticleDetails/ArticleDetails";
@@ -15,25 +15,28 @@ import News from "./components/pages/Nеws/News";
 import { routes } from "./statics/routes";
 import AuthHOC from "./components/authHOC.jsx";
 import { AuthContextProvider } from "./context/AuthContext/AuthContext.jsx";
+import { ModalContextProvider } from "./context/ModalContext/ModalContext.jsx";
 
 function App() {
   return (
     <AuthContextProvider>
-      <Router>
-        <Routes>
-          <Route path={routes.welcome} element={<AuthHOC />}>
-            <Route path={routes.home} element={<Home />} />
-            <Route path={routes.articles} element={<Articles />}>
-              <Route
-                path={routes.articleDetails}
-                element={<ArticleDetails />}
-              />
+      <ModalContextProvider>
+        <Router>
+          <Routes>
+            <Route path={routes.welcome} element={<AuthHOC />}>
+              <Route path={routes.home} element={<Home />} />
+              <Route path={routes.articles} element={<Articles />}>
+                <Route
+                  path={routes.articleDetails}
+                  element={<ArticleDetails />}
+                />
+              </Route>
+              <Route path={routes.news} element={<News />} />
             </Route>
-            <Route path={routes.news} element={<News />} />
-          </Route>
-          <Route path={routes.notFound} element={<NotFound />} />
-        </Routes>
-      </Router>
+            <Route path={routes.notFound} element={<NotFound />} />
+          </Routes>
+        </Router>
+      </ModalContextProvider>
     </AuthContextProvider>
   );
 }
